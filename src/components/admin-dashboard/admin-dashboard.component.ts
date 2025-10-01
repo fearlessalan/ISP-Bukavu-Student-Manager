@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, computed, signal, effect, ElementRef, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DataService } from '../../services/data.service';
-import { Student, Grade } from '../../models';
+import { DataService } from '../../services/data.service.js';
+import { Student, Grade } from '../../models.js';
 import * as d3 from 'd3';
 
 @Component({

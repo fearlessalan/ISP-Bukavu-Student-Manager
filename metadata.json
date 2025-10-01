@@ -1,5 +1,5 @@
 {
-  "name": "ISP Bukavu Student Manager",
+  "name": "Copy of ISP Bukavu Student Manager",
   "description": "A web application for managing students, courses, and grades for ISP Bukavu, designed for a university project. It features a public information page, separate dashboards for administrators and students, and a tool for generating test data.",
   "requestFramePermissions": []
 }

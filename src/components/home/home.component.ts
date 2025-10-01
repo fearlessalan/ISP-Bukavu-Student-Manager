@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../services/data.service.js';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -18,6 +18,7 @@ export class HomeComponent {
 
   totalDepartments = computed(() => {
     const departmentsMap = this.dataService.departmentsMap;
+    // FIX: Explicitly type the accumulator `total` as `number`. It was being inferred as `unknown`, causing a compile error on the `+` operator.
     return Object.values(departmentsMap).reduce((total: number, departments: string[]) => total + departments.length, 0);
   });
 

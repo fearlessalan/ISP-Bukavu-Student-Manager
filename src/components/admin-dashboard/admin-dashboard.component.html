@@ -1,35 +1,33 @@
 <div class="space-y-8">
-  <h1 class="text-3xl md:text-4xl font-bold text-sky-400">Tableau de Bord Administrateur</h1>
+  <h1 class="text-4xl font-bold text-sky-400">Tableau de Bord Administrateur</h1>
 
   <!-- Tab Navigation -->
   <div class="border-b border-gray-700">
-    <div class="overflow-x-auto">
-      <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-        <button (click)="activeTab.set('management')" 
-                [class]="activeTab() === 'management' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
-                class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
-          Gestion des Étudiants
-        </button>
-        <button (click)="activeTab.set('approvals')" 
-                [class]="activeTab() === 'approvals' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
-                class="relative whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
-          Approbations en Attente
-          @if (pendingStudents().length > 0) {
-            <span class="absolute top-2 -right-4 ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ pendingStudents().length }}</span>
-          }
-        </button>
-        <button (click)="activeTab.set('stats')" 
-                [class]="activeTab() === 'stats' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
-                class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
-          Statistiques
-        </button>
-        <button (click)="activeTab.set('tools')" 
-                [class]="activeTab() === 'tools' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
-                class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
-          Outils de Données
-        </button>
-      </nav>
-    </div>
+    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+      <button (click)="activeTab.set('management')" 
+              [class]="activeTab() === 'management' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
+              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+        Gestion des Étudiants
+      </button>
+      <button (click)="activeTab.set('approvals')" 
+              [class]="activeTab() === 'approvals' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
+              class="relative whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+        Approbations en Attente
+        @if (pendingStudents().length > 0) {
+          <span class="absolute top-2 -right-4 ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ pendingStudents().length }}</span>
+        }
+      </button>
+       <button (click)="activeTab.set('stats')" 
+              [class]="activeTab() === 'stats' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
+              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+        Statistiques
+      </button>
+      <button (click)="activeTab.set('tools')" 
+              [class]="activeTab() === 'tools' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
+              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+        Outils de Données
+      </button>
+    </nav>
   </div>
 
   <!-- Student Management Tab -->
@@ -96,11 +94,9 @@
                       <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">{{ student.matricule }}</td>
                       <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">{{ student.section }}</td>
                       <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">{{ student.promotion }}</td>
-                      <td class="px-4 py-3 whitespace-nowrap text-sm text-center">
-                        <div class="flex flex-col sm:flex-row justify-center items-center gap-2">
-                           <button (click)="openEditModal(student)" class="text-sky-400 hover:text-sky-300 font-medium">Éditer Notes</button>
-                           <button (click)="openDeleteModal(student)" class="text-red-400 hover:text-red-300 font-medium">Supprimer</button>
-                        </div>
+                      <td class="px-4 py-3 whitespace-nowrap text-sm text-center space-x-2">
+                        <button (click)="openEditModal(student)" class="text-sky-400 hover:text-sky-300 font-medium">Éditer Notes</button>
+                        <button (click)="openDeleteModal(student)" class="text-red-400 hover:text-red-300 font-medium">Supprimer</button>
                       </td>
                     </tr>
                   }
@@ -109,7 +105,7 @@
             </div>
 
             <!-- Pagination Controls -->
-            <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-y-3 sm:gap-y-0 text-sm">
+            <div class="mt-4 flex items-center justify-between text-sm">
               <p class="text-gray-400">
                 Page <span class="font-semibold text-white">{{ currentPage() }}</span> sur <span class="font-semibold text-white">{{ totalPages() }}</span>
               </p>
