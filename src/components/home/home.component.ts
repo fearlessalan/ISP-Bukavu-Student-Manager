@@ -18,7 +18,8 @@ export class HomeComponent {
 
   totalDepartments = computed(() => {
     const departmentsMap = this.dataService.departmentsMap;
-    return Object.values(departmentsMap).reduce((total, departments) => total + departments.length, 0);
+    // FIX: Explicitly type `departments` as `string[]`. It was being inferred as `unknown`, causing a compile error when accessing `.length`.
+    return Object.values(departmentsMap).reduce((total, departments: string[]) => total + departments.length, 0);
   });
 
   totalCourses = computed(() => {
