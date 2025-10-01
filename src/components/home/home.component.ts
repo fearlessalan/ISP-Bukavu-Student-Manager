@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../services/data.service.js';
 import { RouterModule } from '@angular/router';
 
 @Component({

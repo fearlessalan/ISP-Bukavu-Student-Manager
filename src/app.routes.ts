@@ -1,14 +1,15 @@
 
 
+
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, Routes } from '@angular/router';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/auth.service.js';
 
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
-import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component.js';
+import { LoginComponent } from './components/login/login.component.js';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component.js';
+import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component.js';
+import { RegisterComponent } from './components/register/register.component.js';
 
 const adminGuard: CanActivateFn = () => {
   const authService = inject(AuthService);

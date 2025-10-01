@@ -1,9 +1,10 @@
 
 
+
 import { Injectable, signal, inject, effect } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models';
-import { DataService } from './data.service';
+import { User } from '../models.js';
+import { DataService } from './data.service.js';
 
 const CURRENT_USER_STORAGE_KEY = 'isp-bk-user';
 

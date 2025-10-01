@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { DataService } from '../../services/data.service';
-import { Student } from '../../models';
+import { AuthService } from '../../services/auth.service.js';
+import { DataService } from '../../services/data.service.js';
+import { Student } from '../../models.js';
 
 @Component({
   selector: 'app-student-dashboard',

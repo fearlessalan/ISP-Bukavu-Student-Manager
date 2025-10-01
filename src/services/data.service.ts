@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Student, Grade } from '../models';
+import { Student, Grade } from '../models.js';
 
 const INITIAL_STUDENTS: Student[] = [
   { "id": 1, "name": "Hugo David", "username": "hugo.david", "matricule": "ISP/24/1001", "section": "Hôtellerie, Accueil et Tourisme (HAT)", "department": "Hôtellerie", "promotion": "L3 LMD", "grades": [{ "courseName": "Bases de données", "score": 8 }, { "courseName": "Systèmes d’exploitation", "score": 10 }, { "courseName": "Programmation orientée objet", "score": 10 }], "status": "approved" },
