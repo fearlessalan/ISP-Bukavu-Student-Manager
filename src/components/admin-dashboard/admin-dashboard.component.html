@@ -1,0 +1,347 @@
+<div class="space-y-8">
+  <h1 class="text-4xl font-bold text-sky-400">Tableau de Bord Administrateur</h1>
+
+  <!-- Tab Navigation -->
+  <div class="border-b border-gray-700">
+    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+      <button (click)="activeTab.set('management')" 
+              [class]="activeTab() === 'management' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
+              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+        Gestion des Étudiants
+      </button>
+      <button (click)="activeTab.set('approvals')" 
+              [class]="activeTab() === 'approvals' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
+              class="relative whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+        Approbations en Attente
+        @if (pendingStudents().length > 0) {
+          <span class="absolute top-2 -right-4 ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ pendingStudents().length }}</span>
+        }
+      </button>
+       <button (click)="activeTab.set('stats')" 
+              [class]="activeTab() === 'stats' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
+              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+        Statistiques
+      </button>
+      <button (click)="activeTab.set('tools')" 
+              [class]="activeTab() === 'tools' ? 'border-sky-500 text-sky-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'"
+              class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors">
+        Outils de Données
+      </button>
+    </nav>
+  </div>
+
+  <!-- Student Management Tab -->
+  @if (activeTab() === 'management') {
+    @if (students().length > 0) {
+      <div class="space-y-6">
+        <!-- Stats -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 flex items-center space-x-4">
+            <div class="bg-sky-500/10 p-3 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div>
+            <div><p class="text-sm text-gray-400">Étudiants Approuvés</p><p class="text-2xl font-bold text-white">{{ approvedStudents().length }}</p></div>
+          </div>
+          <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 flex items-center space-x-4">
+            <div class="bg-yellow-500/10 p-3 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg></div>
+            <div><p class="text-sm text-gray-400">En Attente</p><p class="text-2xl font-bold text-white">{{ pendingStudents().length }}</p></div>
+          </div>
+          <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 flex items-center space-x-4">
+            <div class="bg-green-500/10 p-3 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-5.998 12.078 12.078 0 01.665-6.479L12 14z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-5.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222 4 2.222V20M1 12l11 6.111L23 12" /></svg></div>
+            <div><p class="text-sm text-gray-400">Sections</p><p class="text-2xl font-bold text-white">{{ sections.length }}</p></div>
+          </div>
+          <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 flex items-center space-x-4">
+            <div class="bg-purple-500/10 p-3 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h7.5M8.25 12h7.5m-7.5 5.25h7.5M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg></div>
+            <div><p class="text-sm text-gray-400">Promotions</p><p class="text-2xl font-bold text-white">{{ promotions.length }}</p></div>
+          </div>
+        </div>
+        
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+          <h2 class="text-2xl font-semibold text-white mb-4">Étudiants Inscrits</h2>
+          
+          <!-- Filters -->
+          <div class="mb-4 bg-gray-900/50 p-4 rounded-lg border border-gray-700/60">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input type="text" [(ngModel)]="filterSearch" (ngModelChange)="filterSearch.set($event)" placeholder="Rechercher par nom ou matricule..."
+                      class="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-2 text-white focus:ring-sky-500 focus:border-sky-500 placeholder-gray-500">
+              <select [(ngModel)]="filterSection" (ngModelChange)="filterSection.set($event)"
+                      class="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-2 text-white focus:ring-sky-500 focus:border-sky-500">
+                <option value="">Toutes les Sections</option>
+                @for(section of sections; track section) { <option [value]="section">{{section}}</option> }
+              </select>
+              <select [(ngModel)]="filterPromotion" (ngModelChange)="filterPromotion.set($event)"
+                      class="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-2 text-white focus:ring-sky-500 focus:border-sky-500">
+                <option value="">Toutes les Promotions</option>
+                @for(promo of promotions; track promo) { <option [value]="promo">{{promo}}</option> }
+              </select>
+            </div>
+          </div>
+          
+          @if(filteredStudents().length > 0) {
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-700">
+                <thead class="bg-gray-700/50">
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase">Nom</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase">Matricule</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase">Section</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase">Promotion</th>
+                    <th class="px-4 py-3 text-center text-xs font-medium text-gray-300 uppercase">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-gray-800 divide-y divide-gray-700">
+                  @for (student of paginatedStudents(); track student.id) {
+                    <tr class="hover:bg-gray-700/40 transition-colors">
+                      <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-white">{{ student.name }}</td>
+                      <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">{{ student.matricule }}</td>
+                      <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">{{ student.section }}</td>
+                      <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">{{ student.promotion }}</td>
+                      <td class="px-4 py-3 whitespace-nowrap text-sm text-center space-x-2">
+                        <button (click)="openEditModal(student)" class="text-sky-400 hover:text-sky-300 font-medium">Éditer Notes</button>
+                        <button (click)="openDeleteModal(student)" class="text-red-400 hover:text-red-300 font-medium">Supprimer</button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="mt-4 flex items-center justify-between text-sm">
+              <p class="text-gray-400">
+                Page <span class="font-semibold text-white">{{ currentPage() }}</span> sur <span class="font-semibold text-white">{{ totalPages() }}</span>
+              </p>
+              <div class="flex space-x-2">
+                <button (click)="prevPage()" [disabled]="currentPage() === 1"
+                        class="px-3 py-1.5 rounded-md bg-gray-700 hover:bg-gray-600 disabled:bg-gray-700/50 disabled:cursor-not-allowed disabled:text-gray-500 transition-colors">
+                  Précédent
+                </button>
+                <button (click)="nextPage()" [disabled]="currentPage() === totalPages()"
+                        class="px-3 py-1.5 rounded-md bg-gray-700 hover:bg-gray-600 disabled:bg-gray-700/50 disabled:cursor-not-allowed disabled:text-gray-500 transition-colors">
+                  Suivant
+                </button>
+              </div>
+            </div>
+
+          } @else {
+            <p class="text-gray-400 text-center py-8">Aucun étudiant ne correspond à vos critères de recherche.</p>
+          }
+        </div>
+      </div>
+    } @else {
+      <!-- Empty State -->
+      <div class="text-center bg-gray-800 p-12 rounded-xl border-2 border-dashed border-gray-700">
+        <svg class="mx-auto h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>
+        <h3 class="mt-2 text-2xl font-semibold text-white">Aucune donnée d'étudiant</h3>
+        <p class="mt-2 text-base text-gray-400">Commencez par générer des données de test ou importez un fichier pour peupler l'application.</p>
+        <div class="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4">
+          <button (click)="activeTab.set('tools'); generateData()" class="w-full sm:w-auto inline-flex items-center justify-center gap-x-2 rounded-md bg-sky-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-sky-700 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path d="M10 3a.75.75 0 01.75.75v1.5h1.5a.75.75 0 010 1.5h-1.5v1.5a.75.75 0 01-1.5 0v-1.5h-1.5a.75.75 0 010-1.5h1.5v-1.5A.75.75 0 0110 3zM8.06 14.938a.75.75 0 01.94-1.156 3.493 3.493 0 004.018-4.018.75.75 0 111.156-.94 5 5 0 01-5.73 5.73zM5.062 6.94A.75.75 0 014.12 5.784a5 5 0 015.73-5.73.75.75 0 11.94 1.156A3.493 3.493 0 006.774 5.226a.75.75 0 01-1.712 1.712z" /></svg>
+            Générer des données de test
+          </button>
+          <label for="file-upload-empty" class="w-full sm:w-auto cursor-pointer inline-flex items-center justify-center gap-x-2 rounded-md bg-gray-700 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-gray-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v4.59L7.3 9.24a.75.75 0 00-1.1 1.02l3.25 3.5a.75.75 0 001.1 0l3.25-3.5a.75.75 0 10-1.1-1.02l-1.95 2.1V6.75z" clip-rule="evenodd" /></svg>
+            Importer un fichier JSON
+            <input id="file-upload-empty" name="file-upload" type="file" (change)="onFileSelected($event)" accept=".json" class="sr-only"/>
+          </label>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- Approvals Tab -->
+  @if (activeTab() === 'approvals') {
+    <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+      <h2 class="text-2xl font-semibold text-white mb-4">Demandes d'Inscription en Attente</h2>
+      @if (pendingStudents().length > 0) {
+        <ul class="divide-y divide-gray-700">
+          @for(student of pendingStudents(); track student.id) {
+            <li class="py-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div>
+                <p class="text-md font-medium text-white">{{ student.name }} <span class="text-sm text-gray-400">({{student.matricule}})</span></p>
+                <p class="text-sm text-gray-400">{{student.section}} - {{student.department}}</p>
+              </div>
+              <div class="space-x-3 flex-shrink-0">
+                <button (click)="approve(student.id)" class="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-3 rounded-md text-sm transition-colors">Approuver</button>
+                <button (click)="reject(student.id)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md text-sm transition-colors">Rejeter</button>
+              </div>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="text-gray-400 text-center py-8">Aucune demande d'inscription en attente.</p>
+      }
+    </div>
+  }
+
+  <!-- Stats Tab -->
+  @if (activeTab() === 'stats') {
+    @if (students().length > 0) {
+      <div class="space-y-8">
+        <h2 class="text-3xl font-bold text-white">Aperçu Statistique</h2>
+        
+        <!-- KPIs -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Top Student -->
+          <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 border-l-4 border-green-400">
+            <p class="text-sm font-medium text-gray-400 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>Major de Promotion</p>
+            @if(stats().topStudent; as top) {
+              <p class="text-xl font-bold text-white truncate mt-2">{{top.student.name}}</p>
+              <p class="text-sm font-semibold text-green-400">Moyenne: {{top.average}} / 20</p>
+            } @else { <p class="text-gray-500 mt-2">-</p> }
+          </div>
+           <!-- Student to Watch -->
+          <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 border-l-4 border-red-400">
+            <p class="text-sm font-medium text-gray-400 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 3.01-1.742 3.01H4.42c-1.53 0-2.493-1.676-1.743-3.01l5.58-9.92zM10 13a1 1 0 110-2 1 1 0 010 2zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>Étudiant à Suivre</p>
+             @if(stats().studentToWatch; as watch) {
+              <p class="text-xl font-bold text-white truncate mt-2">{{watch.student.name}}</p>
+              <p class="text-sm font-semibold text-red-400">Moyenne: {{watch.average}} / 20</p>
+            } @else { <p class="text-gray-500 mt-2">-</p> }
+          </div>
+          <!-- Easiest Course -->
+          <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 border-l-4 border-sky-400">
+            <p class="text-sm font-medium text-gray-400 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M11.983 1.904a.75.75 0 00-1.292-.658l-5.5 9.25a.75.75 0 00.645 1.132H10.5a.75.75 0 010 1.5H7.25a.75.75 0 00-.69.455l-1.25 2.5a.75.75 0 00.69.96l8.25-3.25a.75.75 0 00-.31-.994l-3.5-2.25a.75.75 0 01-.28-.59v-3.24l3.528-1.764a.75.75 0 00-.31-.994L11.983 1.904z" /></svg>Cours le + Accessible</p>
+             @if(stats().easiestCourse; as course) {
+              <p class="text-xl font-bold text-white truncate mt-2">{{course.name}}</p>
+              <p class="text-sm font-semibold text-sky-400">Moyenne: {{course.average}} / 20</p>
+            } @else { <p class="text-gray-500 mt-2">-</p> }
+          </div>
+           <!-- Hardest Course -->
+          <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 border-l-4 border-orange-400">
+            <p class="text-sm font-medium text-gray-400 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.09 3.34a.75.75 0 01.353.653v3.704c0 .265.13.51.353.653l3.536 2.22c.33.208.432.65.224.98l-2.22 3.535a.75.75 0 01-.98.224L10 13.09V9.386c0-.265-.13-.51-.353-.653L6.111 6.513a.75.75 0 01-.224-.98l2.22-3.536a.75.75 0 01.98-.224l2.004 1.252zM10 5.11L7.996 3.858 6.15 6.992l2.004 1.252V11.4l3.145 1.98-1.846 2.92-2.004-1.252V9.386a2.25 2.25 0 00-1.06-1.96L4.545 6.11a2.25 2.25 0 01-.672-2.94l2.22-3.535a2.25 2.25 0 012.94-.672L10 5.11zm2.955 8.775a.75.75 0 01.98-.224l2.22 1.398a.75.75 0 01-.224.98l-2.22 3.535a.75.75 0 01-.98-.224l-2.22-1.398a.75.75 0 01.224-.98l2.22-3.535z" clip-rule="evenodd" /></svg>Cours le + Exigeant</p>
+             @if(stats().hardestCourse; as course) {
+              <p class="text-xl font-bold text-white truncate mt-2">{{course.name}}</p>
+              <p class="text-sm font-semibold text-orange-400">Moyenne: {{course.average}} / 20</p>
+            } @else { <p class="text-gray-500 mt-2">-</p> }
+          </div>
+        </div>
+        
+        <!-- General Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gray-800 p-5 rounded-xl border border-gray-700"><p class="text-sm text-gray-400">Moyenne générale (tous cours)</p><p class="text-3xl font-bold text-sky-400 mt-1">{{ stats().overallAverage }} / 20</p></div>
+            <div class="bg-gray-800 p-5 rounded-xl border border-gray-700"><p class="text-sm text-gray-400">Notes &ge; 10 (Réussites)</p><p class="text-3xl font-bold text-green-400 mt-1">{{ stats().passFailRatio.passed }}</p></div>
+            <div class="bg-gray-800 p-5 rounded-xl border border-gray-700"><p class="text-sm text-gray-400">Notes &lt; 10 (Échecs)</p><p class="text-3xl font-bold text-red-400 mt-1">{{ stats().passFailRatio.failed }}</p></div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+            <h3 class="text-xl font-semibold text-white mb-4">Répartition par Promotion</h3>
+            <div #promotionChart class="w-full h-[400px]"></div>
+          </div>
+          <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+            <h3 class="text-xl font-semibold text-white mb-4">Répartition par Section</h3>
+            <div #sectionChart class="w-full h-[400px]"></div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <p class="text-gray-400 text-center py-8">Aucune donnée disponible pour afficher les statistiques. Veuillez d'abord ajouter des étudiants.</p>
+    }
+  }
+
+  <!-- Tools Tab -->
+  @if (activeTab() === 'tools') {
+    <div class="space-y-6">
+      <!-- Tool Status Message -->
+      @if (toolStatus(); as status) {
+        <div class="p-4 rounded-md text-sm border"
+             [class]="status.type === 'success' ? 'bg-green-500/10 border-green-500/30 text-green-400' : status.type === 'error' ? 'bg-red-500/10 border-red-500/30 text-red-400' : 'bg-sky-500/10 border-sky-500/30 text-sky-400'">
+          {{ status.message }}
+        </div>
+      }
+
+       <!-- Generator -->
+      <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700">
+        <h2 class="text-2xl font-semibold text-white mb-4 flex items-center">
+          Générateur de données de test
+           <div class="relative group ml-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 cursor-help" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
+            <div class="absolute bottom-full z-10 mb-2 w-72 bg-gray-900 text-gray-300 text-sm rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg border border-gray-600 -translate-x-1/2 left-1/2">
+              Créez rapidement un jeu de données aléatoires pour tester les fonctionnalités de l'application. Les étudiants générés s'ajouteront à la liste existante.
+            </div>
+          </div>
+        </h2>
+        <div class="flex items-center space-x-4">
+          <label for="studentCount" class="text-gray-300">Nombre d'étudiants:</label>
+          <input type="number" id="studentCount" name="studentCount" [(ngModel)]="studentCount" min="1" max="1000" class="w-32 bg-gray-900 border border-gray-600 rounded-md px-3 py-2 text-white focus:ring-sky-500 focus:border-sky-500">
+          <button (click)="generateData()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">Générer</button>
+        </div>
+      </div>
+      <!-- Exporter -->
+       <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700">
+        <div class="flex justify-between items-center">
+          <h2 class="text-2xl font-semibold text-white">Données Actuelles (JSON)</h2>
+          <button (click)="exportJson()" [disabled]="students().length === 0" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed">
+            Exporter en JSON
+          </button>
+        </div>
+         @if (students().length > 0) {
+          <pre class="mt-4 bg-gray-900 text-sm text-gray-300 p-4 rounded-md max-h-72 overflow-auto border border-gray-700"><code>{{ generatedJson() }}</code></pre>
+        } @else {
+          <p class="text-gray-400 text-center py-8">Aucune donnée à afficher ou exporter.</p>
+        }
+      </div>
+      <!-- Importer -->
+      <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700">
+        <h2 class="text-2xl font-semibold text-white mb-4 flex items-center">
+          Importer une Base de Données
+          <div class="relative group ml-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 cursor-help" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
+            <div class="absolute bottom-full z-10 mb-2 w-80 bg-gray-900 text-gray-300 text-sm rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg border border-gray-600 -translate-x-1/2 left-1/2">
+              Téléchargez un fichier JSON pour remplacer toutes les données actuelles. Assurez-vous que le fichier respecte la structure de données de l'application. Cette action est irréversible.
+            </div>
+          </div>
+        </h2>
+        <p class="text-sm text-gray-400 mb-4">Le fichier importé remplacera toutes les données existantes.</p>
+        <div class="mt-4">
+            <label for="file-upload" class="sr-only">Choisir un fichier</label>
+            <input id="file-upload" name="file-upload" type="file" (change)="onFileSelected($event)" accept=".json" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer"/>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Modals -->
+  @if(isEditModalOpen()) {
+    <div class="fixed inset-0 bg-gray-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl shadow-2xl w-full max-w-2xl border border-gray-700">
+        <div class="p-6 border-b border-gray-700">
+          <h3 class="text-xl font-semibold text-white">Modifier les notes de {{ selectedStudent()?.name }}</h3>
+        </div>
+        <div class="p-6 max-h-[60vh] overflow-y-auto">
+          <div class="space-y-4">
+            @for(grade of editedGrades(); track grade.courseName) {
+              <div class="grid grid-cols-3 items-center gap-4">
+                <label [for]="grade.courseName" class="text-sm text-gray-300 col-span-2">{{ grade.courseName }}</label>
+                <input type="number" [id]="grade.courseName" [name]="grade.courseName" [value]="grade.score" 
+                       (input)="onGradeChange(grade.courseName, $event.target.value)"
+                       min="0" max="20"
+                       class="w-full bg-gray-900 border border-gray-600 rounded-md px-3 py-2 text-white focus:ring-sky-500 focus:border-sky-500">
+              </div>
+            }
+          </div>
+        </div>
+        <div class="p-4 bg-gray-800/50 border-t border-gray-700 flex justify-end space-x-3">
+          <button (click)="closeModals()" class="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-white font-medium transition-colors">Annuler</button>
+          <button (click)="saveGrades()" class="px-4 py-2 rounded-md bg-sky-600 hover:bg-sky-700 text-white font-bold transition-colors">Enregistrer les notes</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if(isDeleteModalOpen()) {
+     <div class="fixed inset-0 bg-gray-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl shadow-2xl w-full max-w-md border border-gray-700">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-white">Confirmer la suppression</h3>
+          <p class="mt-2 text-gray-400">
+            Êtes-vous sûr de vouloir supprimer l'étudiant <strong class="text-white">{{ studentToDelete()?.name }}</strong> ? Cette action est irréversible.
+          </p>
+        </div>
+        <div class="p-4 bg-gray-800/50 border-t border-gray-700 flex justify-end space-x-3">
+          <button (click)="closeModals()" class="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-white font-medium transition-colors">Annuler</button>
+          <button (click)="confirmDelete()" class="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white font-bold transition-colors">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

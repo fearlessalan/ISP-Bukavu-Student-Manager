@@ -1,0 +1,52 @@
+<div class="flex items-center justify-center py-12">
+  <div class="w-full max-w-md p-8 space-y-8 bg-gray-800 rounded-2xl shadow-lg border border-gray-700">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
+        Connectez-vous à votre compte
+      </h2>
+    </div>
+    <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="rounded-md shadow-sm space-y-4">
+        <div>
+          <label for="username" class="sr-only">Username</label>
+          <input id="username" name="username" type="text" required
+                 [(ngModel)]="username"
+                 class="appearance-none relative block w-full px-3 py-3 border border-gray-600 bg-gray-900 text-gray-200 placeholder-gray-500 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
+                 placeholder="Username (ex: celine moreau)">
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input id="password" name="password" type="password" required
+                 [(ngModel)]="password"
+                 class="appearance-none relative block w-full px-3 py-3 border border-gray-600 bg-gray-900 text-gray-200 placeholder-gray-500 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
+                 placeholder="Mot de passe / Matricule">
+        </div>
+      </div>
+
+      @if (errorMessage()) {
+        <div class="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-md text-sm">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <div>
+        <button type="submit" [disabled]="loginForm.invalid"
+                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-sky-500 disabled:bg-gray-600 disabled:cursor-not-allowed">
+          Se connecter
+        </button>
+      </div>
+    </form>
+     <p class="mt-2 text-center text-sm text-gray-400">
+        Pas encore de compte?
+        <a routerLink="/register" class="font-medium text-sky-400 hover:text-sky-300">
+          Inscrivez-vous
+        </a>
+      </p>
+      
+      <div class="text-center text-xs text-gray-500 pt-4 border-t border-gray-700">
+        <p class="font-semibold text-gray-400">Pour la démo :</p>
+        <p><span class="font-medium">Admin :</span> fearless / fearless</p>
+        <p><span class="font-medium">Étudiant :</span> hugo.david / ISP/24/1001</p>
+      </div>
+  </div>
+</div>

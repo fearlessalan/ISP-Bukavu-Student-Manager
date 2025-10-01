@@ -1,0 +1,18 @@
+<div class="min-h-screen flex flex-col">
+  <app-header></app-header>
+  <main class="flex-grow container mx-auto p-4 md:p-8">
+    <router-outlet></router-outlet>
+  </main>
+  <footer class="bg-gray-800 text-center p-6 text-sm text-gray-400">
+    <div class="flex justify-center space-x-6 mb-4 text-xl">
+      <a href="https://instagram.com/fearlessalan" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-sky-400 transition-colors"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/in/fearlessalan" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-sky-400 transition-colors"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/fearlessalan" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-sky-400 transition-colors"><i class="fab fa-github"></i></a>
+    </div>
+    <div class="space-y-1 mb-4">
+      <p><a href="tel:+243994454201" class="hover:text-sky-400 transition-colors">+243 994 454 201</a></p>
+      <p><a href="mailto:fearlessalain@gmail.com" class="hover:text-sky-400 transition-colors">fearlessalain@gmail.com</a></p>
+    </div>
+    <p>&copy; {{ currentYear }} Fearless - Projet de Programmation Impérative - ISP Bukavu</p>
+  </footer>
+</div>

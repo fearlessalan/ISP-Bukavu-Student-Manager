@@ -1,0 +1,16 @@
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './components/shared/header/header.component';
+import { RegisterComponent } from './components/register/register.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterOutlet, HeaderComponent, RegisterComponent]
+})
+export class AppComponent {
+  title = 'ISP Bukavu Student Manager';
+  currentYear = new Date().getFullYear();
+}
