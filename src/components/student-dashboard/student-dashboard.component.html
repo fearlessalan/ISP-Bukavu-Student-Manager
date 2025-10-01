@@ -1,27 +1,27 @@
 <div class="space-y-8">
   @if (studentData(); as student) {
-    <h1 class="text-4xl font-bold text-sky-400">Tableau de Bord de {{ student.name }}</h1>
+    <h1 class="text-3xl md:text-4xl font-bold text-sky-400">Tableau de Bord de {{ student.name }}</h1>
 
     <!-- Stats Section -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 flex items-center space-x-4">
         <div class="bg-sky-500/10 p-3 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg></div>
-        <div><p class="text-sm text-gray-400">Moyenne Générale</p><p class="text-2xl font-bold text-white">{{ studentStats().averageScore }} / 20</p></div>
+        <div><p class="text-sm text-gray-400">Moyenne Générale</p><p class="text-xl sm:text-2xl font-bold text-white">{{ studentStats().averageScore }} / 20</p></div>
       </div>
       <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 flex items-center space-x-4">
         <div class="bg-green-500/10 p-3 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
-        <div><p class="text-sm text-gray-400">Cours Réussis</p><p class="text-2xl font-bold text-white">{{ studentStats().passedCourses }} / {{ studentStats().totalCourses }}</p></div>
+        <div><p class="text-sm text-gray-400">Cours Réussis</p><p class="text-xl sm:text-2xl font-bold text-white">{{ studentStats().passedCourses }} / {{ studentStats().totalCourses }}</p></div>
       </div>
       <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 flex items-center space-x-4">
         <div class="bg-red-500/10 p-3 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
-        <div><p class="text-sm text-gray-400">Cours Échoués</p><p class="text-2xl font-bold text-white">{{ studentStats().failedCourses }} / {{ studentStats().totalCourses }}</p></div>
+        <div><p class="text-sm text-gray-400">Cours Échoués</p><p class="text-xl sm:text-2xl font-bold text-white">{{ studentStats().failedCourses }} / {{ studentStats().totalCourses }}</p></div>
       </div>
     </div>
 
     <!-- Student Profile -->
     <div class="bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-700">
       <h2 class="text-2xl font-semibold text-white mb-6">Mon Profil</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-lg">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 md:gap-y-4 text-base sm:text-lg">
         <div>
           <span class="font-semibold text-gray-400">Nom Complet:</span>
           <span class="ml-2 text-gray-200">{{ student.name }}</span>
