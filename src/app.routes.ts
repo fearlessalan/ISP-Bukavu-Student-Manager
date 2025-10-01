@@ -1,6 +1,3 @@
-
-
-
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, Routes } from '@angular/router';
 import { AuthService } from './services/auth.service.js';
@@ -13,7 +10,6 @@ import { RegisterComponent } from './components/register/register.component.js';
 
 const adminGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
-  // FIX: Explicitly type `router` as `Router` to resolve type inference issue.
   const router: Router = inject(Router);
   if (authService.currentUser()?.role === 'admin') {
     return true;
@@ -24,7 +20,6 @@ const adminGuard: CanActivateFn = () => {
 
 const studentGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
-  // FIX: Explicitly type `router` as `Router` to resolve type inference issue.
   const router: Router = inject(Router);
   if (authService.currentUser()?.role === 'student') {
     return true;

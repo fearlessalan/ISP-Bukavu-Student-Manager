@@ -12,11 +12,13 @@
     "outDir": "dist",
     "rootDir": ".",
     "jsx": "react-native",
-    "sourceMap": true
+    "sourceMap": false,
+    "resolveJsonModule": true
   },
   "include": [
     "index.tsx",
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.json"
   ],
   "exclude": [
     "node_modules"

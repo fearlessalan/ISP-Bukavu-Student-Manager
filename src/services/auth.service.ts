@@ -1,6 +1,3 @@
-
-
-
 import { Injectable, signal, inject, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models.js';
@@ -13,7 +10,6 @@ const CURRENT_USER_STORAGE_KEY = 'isp-bk-user';
 })
 export class AuthService {
   private dataService = inject(DataService);
-  // FIX: Explicitly type `router` as `Router` to resolve type inference issue.
   private router: Router = inject(Router);
 
   currentUser = signal<User | null>(this.getStoredUser());
