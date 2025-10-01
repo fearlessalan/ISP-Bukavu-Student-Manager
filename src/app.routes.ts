@@ -1,15 +1,16 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, Routes } from '@angular/router';
-import { AuthService } from './services/auth.service.js';
+import { AuthService } from './services/auth.service';
 
-import { HomeComponent } from './components/home/home.component.js';
-import { LoginComponent } from './components/login/login.component.js';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component.js';
-import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component.js';
-import { RegisterComponent } from './components/register/register.component.js';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const adminGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
+  // FIX: Explicitly type `router` as `Router` to resolve type inference issue.
   const router: Router = inject(Router);
   if (authService.currentUser()?.role === 'admin') {
     return true;
@@ -20,6 +21,7 @@ const adminGuard: CanActivateFn = () => {
 
 const studentGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
+  // FIX: Explicitly type `router` as `Router` to resolve type inference issue.
   const router: Router = inject(Router);
   if (authService.currentUser()?.role === 'student') {
     return true;

@@ -1,9 +1,7 @@
-
-
 import { Component, ChangeDetectionStrategy, inject, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { DataService } from '../../services/data.service.js';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-register',

@@ -11,8 +11,8 @@
     "esModuleInterop": true,
     "outDir": "dist",
     "rootDir": ".",
-    "jsx": "react-native",
-    "sourceMap": false,
+    "jsx": "preserve",
+    "sourceMap": true,
     "resolveJsonModule": true
   },
   "include": [

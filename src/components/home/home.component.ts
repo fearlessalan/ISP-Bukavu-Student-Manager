@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
-import { DataService } from '../../services/data.service.js';
+import { DataService } from '../../services/data.service';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -18,8 +18,7 @@ export class HomeComponent {
 
   totalDepartments = computed(() => {
     const departmentsMap = this.dataService.departmentsMap;
-    // FIX: Explicitly type `departments` as `string[]`. It was being inferred as `unknown`, causing a compile error when accessing `.length`.
-    return Object.values(departmentsMap).reduce((total, departments: string[]) => total + departments.length, 0);
+    return Object.values(departmentsMap).reduce((total: number, departments: string[]) => total + departments.length, 0);
   });
 
   totalCourses = computed(() => {
